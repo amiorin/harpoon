@@ -1,6 +1,6 @@
 # Harpoon Window Manager
-## The problem
-You have many windows in your space but only some of them are relevant to get job done. Using `cmd+back_tick` and `cmd-tab` makes you lose focus and time.
+## Problem
+You have many windows in your space but only some of them are relevant to your work. Using `cmd+back_tick` and `cmd-tab` makes you lose focus and time.
 
 ## Solution
 Use bookmarks to quickly switch between the relevant windows. In my case I use `F1-5` to navigate to the relevant windows and `S-F1-5` to add the relevant windows.
@@ -135,12 +135,14 @@ This is the logic for the Harpoon Window Manager
 
 ```js @code
 harpoon = Storage.get('harpoon')
+modal = {n: null, ts: 0}
+timeout = 2000
 
 const showPopup = str => {
   let name = focused().app().name()
   let frame = focused().screenFrame()
   let modal = Modal.build({
-    duration: 0.1,
+    duration: 1.0,
     text: str
   })
   modal.origin = {
@@ -158,26 +160,39 @@ const init_harpoon = (space_id, n) => {
   }
 }
 
-const debug_harpoon = () => {
-  Phoenix.log(harpoon)
-}
-
 const add_window = n => {
+  if (modal.n != n || Date.now() - modal.ts > timeout) {
+    showPopup(n)
+  }
   const space_id = Space.active().hash()
   init_harpoon(space_id, n)
-  index = harpoon[space_id][n].index + 1
-  wins = Space.active().windows({visible: true})
+  const wins = Space.active().windows({visible: true})
+  const focused_id = focused().hash()
   if (wins.length == 0) { return }
-  index = index % wins.length
-  if (focused().hash() == wins[index].hash()) { 
-    index += 1
+  if (modal.n != n && Date.now() - modal.ts < timeout) {
+    let index
+    _.each(wins, (win, key) => {
+      if (focused_id == win.hash()) {
+        index = key
+      }
+    })
+    harpoon[space_id][n].index = index
+    harpoon[space_id][n].win_id = focused_id
+  } else {
+    // cycle and then assign
+    index = harpoon[space_id][n].index + 1
     index = index % wins.length
+    if (focused_id == wins[index].hash()) { 
+      index += 1
+      index = index % wins.length
+    }
+    wins[index].focus()
+    harpoon[space_id][n].index = index
+    harpoon[space_id][n].win_id = focused().hash()
   }
-  Phoenix.log("INDEX : " + index)
-  wins[index].focus()
-  harpoon[space_id][n].index = index
-  harpoon[space_id][n].win_id = focused().hash()
   Storage.set('harpoon', harpoon)
+  modal.n = n
+  modal.ts = Date.now()
 }
 
 const nav_window = n => {
