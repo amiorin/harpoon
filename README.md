@@ -7,12 +7,12 @@ Use bookmarks to quickly switch between the relevant windows. In my case I use `
 
 ## Installation
 1. Use https://github.com/keycastr/keycastr to debug the configuration
-1. Install Karabiner to disable `cmd+back_tick` and `cmd-tab`. This will allow to unlearn the anti-pattern
+1. Install Karabiner to disable `cmd+back_tick` and `cmd-tab`. This will allow to unlearn the anti-pattern.
 1. Get used to `mash` (`cmd+opt+ctrl`) and `smash` (`mash` + `shift`). 
-1. Map `f1-5` to `mash 1-5`
-1. Map `shift-f1-5` to `smash 1-5`
-1. Map `mash 1-5` to `nav_window`
-1. Map `smash 1-5` to `add_window`
+1. Map `f1-5` to `mash 1-5` with Karabiner.
+1. Map `shift-f1-5` to `smash 1-5` with Karabiner.
+1. Map `mash 1-5` to `nav_window` with Phoenix.
+1. Map `smash 1-5` to `add_window` with Phoenix.
 1. Read https://github.com/jasonm23/Phoenix-config to understand how to convert this `README.md` in a Phoneix config file.
 
 ## Alternatives
