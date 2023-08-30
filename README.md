@@ -1,6 +1,6 @@
 # Harpoon Window Manager
 Harpoon Window Manager is built on top of amazing other projects like
-1. https://github.com/ThePrimeagen/harpoon
+1. https://github.com/ThePrimeagen/harpoon (just the main idea)
 2. https://github.com/kasper/phoenix
 3. https://github.com/jasonm23/Phoenix-config
 4. https://karabiner-elements.pqrs.org/
@@ -9,18 +9,20 @@ Harpoon Window Manager is built on top of amazing other projects like
 You have many windows in your space but only some of them are relevant to get job done. Using `cmd+back_tick` and `cmd-tab` makes you lose focus and time.
 
 # Solution
-Use bookmarks to quickly switch between the relevant windows.
+Use bookmarks to quickly switch between the relevant windows. In my case I use `F1-5` to navigate to the relevant windows and `S-F1-5` to add the relevant windows.
 
 # Alternatives
 Buy 3 monitors and use a tiling window manager like https://github.com/koekeishiya/yabai. This was not an option for me.
 
 # Installation
+1. Use https://github.com/keycastr/keycastr to debug the configuration
 1. Install Karabiner to disable `cmd+back_tick` and `cmd-tab`. This will allow to unlearn the anti-pattern
 1. Get used to `mash` (`cmd+opt+ctrl`) and `smash` (`mash` + `shift`). 
 1. Map `f1-5` to `mash 1-5`
 1. Map `shift-f1-5` to `smash 1-5`
 1. Map `mash 1-5` to `nav_window`
 1. Map `smash 1-5` to `add_window`
+1. Read https://github.com/jasonm23/Phoenix-config to understand how to convert this `README.md` in a Phoneix config file.
 
 ```js
 bind_key('1', 'Nav F1', mash, () => nav_window("F1"))
@@ -34,8 +36,6 @@ bind_key('4', 'Add F4', smash, () => add_window("F4"))
 bind_key('5', 'Nav F5', mash, () => nav_window("F5"))
 bind_key('5', 'Add F5', smash, () => add_window("F5"))
 ```
-
-1. Use https://github.com/keycastr/keycastr to debug the configuration
 
 # Code
 
