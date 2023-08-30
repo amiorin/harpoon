@@ -3,16 +3,16 @@
 You have many windows in your space but only some of them are relevant to your work. Using `cmd+back_tick` and `cmd-tab` makes you lose focus and time.
 
 ## Solution
-Use bookmarks to quickly switch between the relevant windows. In my case I use `F1-5` to navigate to the relevant windows and `S-F1-5` to add the relevant windows.
-
+Use bookmarks to quickly switch between the relevant windows. In my case I use `F1-5` to navigate to the relevant windows and `S-F1-5` to add the relevant windows. You can repeat `S-F1-5` to cycle through all visible windows of a space. Every space has its own bookmars. You can use multiple spaces for multiple activities.
+ 
 ## Installation
 1. Use https://github.com/keycastr/keycastr to debug the configuration
 1. Install Karabiner to disable `cmd+back_tick` and `cmd-tab`. This will allow to unlearn the anti-pattern.
 1. Get used to `mash` (`cmd+opt+ctrl`) and `smash` (`mash` + `shift`). 
 1. Map `f1-5` to `mash 1-5` with Karabiner.
 1. Map `shift-f1-5` to `smash 1-5` with Karabiner.
-1. Map `mash 1-5` to `nav_window` with Phoenix.
-1. Map `smash 1-5` to `add_window` with Phoenix.
+1. Map `mash 1-5` to `nav_window` (navigate to a window with a bookmark) with Phoenix.
+1. Map `smash 1-5` to `add_window` (add bookmark to a window) with Phoenix.
 1. Read https://github.com/jasonm23/Phoenix-config to understand how to convert this `README.md` in a Phoneix config file.
 
 ## Alternatives
@@ -139,8 +139,7 @@ modal = {n: null, ts: 0}
 timeout = 2000
 
 const showPopup = str => {
-  let name = focused().app().name()
-  let frame = focused().screenFrame()
+  let frame = Screen.main().frame()
   let modal = Modal.build({
     duration: 1.0,
     text: str
@@ -170,6 +169,7 @@ const add_window = n => {
   const focused_id = focused().hash()
   if (wins.length == 0) { return }
   if (modal.n != n && Date.now() - modal.ts < timeout) {
+    // assign to the focused window
     let index
     _.each(wins, (win, key) => {
       if (focused_id == win.hash()) {
@@ -199,7 +199,10 @@ const nav_window = n => {
   const space_id = Space.active().hash()
   init_harpoon(space_id, n)
   let win_id = harpoon[space_id][n].win_id
-  if (_.isNull(win_id)) { return }
+  if (_.isNull(win_id)) {
+    showPopup("404")
+    return
+  }
   let found = false;
   _.each(Space.active().windows({visible: true}), win => {
     if (win.hash() == win_id) {
