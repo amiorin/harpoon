@@ -168,7 +168,7 @@ const add_window = n => {
   const wins = Space.active().windows({visible: true})
   const focused_id = focused().hash()
   if (wins.length == 0) { return }
-  if (modal.n != n && Date.now() - modal.ts < timeout) {
+  if (modal.n != n || Date.now() - modal.ts > timeout) {
     // assign to the focused window
     let index
     _.each(wins, (win, key) => {
