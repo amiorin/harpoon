@@ -1,4 +1,7 @@
 # Harpoon Window Manager
+## Demo
+[![Demo](https://img.youtube.com/vi/ZRBpKcuCpuI/0.jpg)](https://www.youtube.com/watch?v=ZRBpKcuCpuI)
+
 ## Problem
 You have many windows in your space but only some of them are relevant to your work. Using `cmd+back_tick` and `cmd-tab` makes you lose focus and time.
 
