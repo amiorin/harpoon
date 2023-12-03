@@ -1,3 +1,6 @@
+# UPDATE
+I bought 2 potable monitors and I switched to yabai and a mechanical keyboard. I'm working on a [CLI](https://github.com/amiorin/happy-yabai) for yabai.
+
 # Harpoon Window Manager
 ## Demo
 [![Demo](https://img.youtube.com/vi/ZRBpKcuCpuI/0.jpg)](https://www.youtube.com/watch?v=ZRBpKcuCpuI)
